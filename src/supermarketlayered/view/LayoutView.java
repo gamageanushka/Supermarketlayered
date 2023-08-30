@@ -4,6 +4,9 @@
  */
 package supermarketlayered.view;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author user
@@ -32,12 +35,14 @@ public class LayoutView extends javax.swing.JFrame {
         navPanel = new javax.swing.JPanel();
         saveCustomer1 = new javax.swing.JButton();
         saveItem = new javax.swing.JButton();
+        placeOrderButton = new javax.swing.JButton();
         bodyPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         headerPanel.setBackground(new java.awt.Color(204, 204, 255));
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Customer");
 
@@ -45,10 +50,10 @@ public class LayoutView extends javax.swing.JFrame {
         headerPanel.setLayout(headerPanelLayout);
         headerPanelLayout.setHorizontalGroup(
             headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerPanelLayout.createSequentialGroup()
-                .addGap(382, 382, 382)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerPanelLayout.createSequentialGroup()
+                .addContainerGap(415, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(406, Short.MAX_VALUE))
+                .addGap(373, 373, 373))
         );
         headerPanelLayout.setVerticalGroup(
             headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -69,6 +74,7 @@ public class LayoutView extends javax.swing.JFrame {
             }
         });
 
+        saveItem.setBackground(new java.awt.Color(255, 153, 255));
         saveItem.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         saveItem.setText("Save Item");
         saveItem.addActionListener(new java.awt.event.ActionListener() {
@@ -77,15 +83,25 @@ public class LayoutView extends javax.swing.JFrame {
             }
         });
 
+        placeOrderButton.setBackground(new java.awt.Color(204, 153, 255));
+        placeOrderButton.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        placeOrderButton.setText("Order");
+        placeOrderButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                placeOrderButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout navPanelLayout = new javax.swing.GroupLayout(navPanel);
         navPanel.setLayout(navPanelLayout);
         navPanelLayout.setHorizontalGroup(
             navPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, navPanelLayout.createSequentialGroup()
+            .addGroup(navPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(navPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(saveItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(saveCustomer1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(navPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(saveItem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(saveCustomer1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(placeOrderButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         navPanelLayout.setVerticalGroup(
@@ -93,9 +109,11 @@ public class LayoutView extends javax.swing.JFrame {
             .addGroup(navPanelLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(saveCustomer1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(saveItem, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(457, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(placeOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(397, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout bodyPanelLayout = new javax.swing.GroupLayout(bodyPanel);
@@ -153,8 +171,16 @@ public class LayoutView extends javax.swing.JFrame {
     }//GEN-LAST:event_saveCustomer1ActionPerformed
 
     private void saveItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveItemActionPerformed
-        loadItemPanel();
+        try {
+            loadItemPanel();
+        } catch (Exception ex) {
+            Logger.getLogger(LayoutView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_saveItemActionPerformed
+
+    private void placeOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_placeOrderButtonActionPerformed
+        loadOrderPanel();
+    }//GEN-LAST:event_placeOrderButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -200,6 +226,7 @@ public class LayoutView extends javax.swing.JFrame {
     private javax.swing.JPanel headerPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel navPanel;
+    private javax.swing.JButton placeOrderButton;
     private javax.swing.JButton saveCustomer1;
     private javax.swing.JButton saveItem;
     // End of variables declaration//GEN-END:variables
@@ -213,9 +240,18 @@ public class LayoutView extends javax.swing.JFrame {
         bodyPanel.revalidate();
     }
 
-    private void loadItemPanel() {
+    private void loadItemPanel() throws Exception {
         bodyPanel.removeAll();
         ItemPanel cp = new ItemPanel();
+        cp.setSize(bodyPanel.getWidth(), bodyPanel.getHeight());
+        bodyPanel.add(cp);
+        bodyPanel.repaint();
+        bodyPanel.revalidate();
+    }
+
+    private void loadOrderPanel() {
+        bodyPanel.removeAll();
+        OrderPanel cp = new OrderPanel();
         cp.setSize(bodyPanel.getWidth(), bodyPanel.getHeight());
         bodyPanel.add(cp);
         bodyPanel.repaint();
